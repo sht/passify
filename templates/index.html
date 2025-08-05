@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card shadow-lg p-4">
+            <h2 class="mb-4 text-center">
+                <i class="fas fa-shield-alt text-primary me-2"></i>Password Generator
+            </h2>
+            {% if error %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+                </div>
+            {% endif %}
+            <form method="post" autocomplete="off">
+                <div class="mb-4">
+                    <label for="length" class="form-label fw-bold">
+                        <i class="fas fa-ruler me-2"></i>Password Length
+                    </label>
+                    <div class="input-group">
+                        <input type="range" class="form-range w-75" id="lengthRange" min="4" max="64"
+                               value="{{ settings.length }}" oninput="updateLengthValue(this.value)">
+                        <input type="number" class="form-control ms-2" id="length" name="length" min="4" max="64"
+                               value="{{ settings.length }}" required oninput="updateRangeValue(this.value)">
+                    </div>
+                    <small class="text-muted">Move the slider to adjust password length</small>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">
+                        <i class="fas fa-font me-2"></i>Character Types
+                    </label>
+                    <div class="card border-light mb-2">
+                        <div class="card-body py-2">
+                            <div class="form-check d-flex align-items-center mb-2">
+                                <input class="form-check-input" type="checkbox" id="use_upper" name="use_upper"
+                                       {% if settings.use_upper %}checked{% endif %}>
+                                <label class="form-check-label me-auto" for="use_upper">
+                                    <i class="fas fa-uppercase me-1"></i>Uppercase (A-Z)
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2 small">Min:</span>
+                                    <input type="number" class="form-control form-control-sm" style="width: 60px;"
+                                           name="min_upper" min="0" max="64" value="{{ settings.min_upper }}"
+                                           data-bs-toggle="tooltip" title="Minimum uppercase characters">
+                                </div>
+                            </div>
+
+                            <div class="form-check d-flex align-items-center mb-2">
+                                <input class="form-check-input" type="checkbox" id="use_lower" name="use_lower"
+                                       {% if settings.use_lower %}checked{% endif %}>
+                                <label class="form-check-label me-auto" for="use_lower">
+                                    <i class="fas fa-lowercase me-1"></i>Lowercase (a-z)
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2 small">Min:</span>
+                                    <input type="number" class="form-control form-control-sm" style="width: 60px;"
+                                           name="min_lower" min="0" max="64" value="{{ settings.min_lower }}"
+                                           data-bs-toggle="tooltip" title="Minimum lowercase characters">
+                                </div>
+                            </div>
+
+                            <div class="form-check d-flex align-items-center mb-2">
+                                <input class="form-check-input" type="checkbox" id="use_digits" name="use_digits"
+                                       {% if settings.use_digits %}checked{% endif %}>
+                                <label class="form-check-label me-auto" for="use_digits">
+                                    <i class="fas fa-hashtag me-1"></i>Numbers (0-9)
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2 small">Min:</span>
+                                    <input type="number" class="form-control form-control-sm" style="width: 60px;"
+                                           name="min_digits" min="0" max="64" value="{{ settings.min_digits }}"
+                                           data-bs-toggle="tooltip" title="Minimum numeric characters">
+                                </div>
+                            </div>
+
+                            <div class="form-check d-flex align-items-center">
+                                <input class="form-check-input" type="checkbox" id="use_special" name="use_special"
+                                       {% if settings.use_special %}checked{% endif %}>
+                                <label class="form-check-label" for="use_special">
+                                    <i class="fas fa-at me-1"></i>Special Characters
+                                    <span class="text-muted ms-1" style="font-size: 0.9em;">(e.g. !@#$...)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-2">
+                    <i class="fas fa-key me-2"></i>Generate Secure Password
+                </button>
+            </form>
+
+            {% if password %}
+                <div class="alert alert-success mt-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong><i class="fas fa-check-circle me-2"></i>Your Password:</strong>
+                        <button class="btn btn-sm btn-outline-success" id="copyBtn" onclick="copyPassword()">
+                            <i class="fas fa-copy me-1"></i>Copy
+                        </button>
+                    </div>
+                    <div class="display-6 text-center py-2 font-monospace" id="passwordDisplay">{{ password }}</div>
+
+                    <!-- Password Strength Indicator -->
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Password Strength:</span>
+                            <span id="strengthLabel" class="fw-bold"></span>
+                        </div>
+                        <div class="progress">
+                            <div id="strengthBar" class="progress-bar" role="progressbar"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Password strength calculation
+    {% if password %}
+        document.addEventListener('DOMContentLoaded', function() {
+            const password = "{{ password }}";
+            calculateStrength(password);
+        });
+    {% endif %}
+
+    function calculateStrength(password) {
+        // Base score
+        let strength = 0;
+        let label = "";
+        let color = "";
+
+        // Length check
+        if (password.length >= 12) strength += 25;
+        else if (password.length >= 8) strength += 15;
+        else strength += 5;
+
+        // Character type checks
+        if (/[A-Z]/.test(password)) strength += 15;
+        if (/[a-z]/.test(password)) strength += 15;
+        if (/[0-9]/.test(password)) strength += 15;
+        if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+
+        // Variety check
+        const uniqueChars = new Set(password).size;
+        const uniqueRatio = uniqueChars / password.length;
+        strength += Math.floor(uniqueRatio * 10);
+
+        // Cap at 100%
+        strength = Math.min(100, strength);
+
+        // Set label and color based on strength
+        if (strength >= 80) {
+            label = "Very Strong";
+            color = "#28a745"; // green
+        } else if (strength >= 60) {
+            label = "Strong";
+            color = "#17a2b8"; // teal
+        } else if (strength >= 40) {
+            label = "Medium";
+            color = "#ffc107"; // yellow
+        } else if (strength >= 20) {
+            label = "Weak";
+            color = "#fd7e14"; // orange
+        } else {
+            label = "Very Weak";
+            color = "#dc3545"; // red
+        }
+
+        // Update UI
+        document.getElementById('strengthBar').style.width = strength + '%';
+        document.getElementById('strengthBar').style.backgroundColor = color;
+        document.getElementById('strengthLabel').textContent = label;
+        document.getElementById('strengthLabel').style.color = color;
+    }
+
+    // Copy to clipboard functionality
+    function copyPassword() {
+        const passwordText = document.getElementById('passwordDisplay').textContent;
+        navigator.clipboard.writeText(passwordText).then(function() {
+            const copyBtn = document.getElementById('copyBtn');
+            const originalText = copyBtn.innerHTML;
+
+            copyBtn.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+            copyBtn.classList.remove('btn-outline-success');
+            copyBtn.classList.add('btn-success');
+
+            setTimeout(function() {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('btn-success');
+                copyBtn.classList.add('btn-outline-success');
+            }, 2000);
+        });
+    }
+
+    // Range and number input synchronization
+    function updateLengthValue(val) {
+        document.getElementById('length').value = val;
+    }
+
+    function updateRangeValue(val) {
+        document.getElementById('lengthRange').value = val;
+    }
+
+    // Initialize sliders and form fields with session values
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ensure range slider and number input are in sync on page load
+        const lengthInput = document.getElementById('length');
+        const lengthRange = document.getElementById('lengthRange');
+        if (lengthInput && lengthRange) {
+            lengthRange.value = lengthInput.value;
+        }
+    });
+</script>
+{% endblock %}
