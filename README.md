@@ -22,14 +22,14 @@ Built with Flask, Bootstrap, and Docker. No database required.
 ```bash
 git clone https://github.com/yourusername/passify.git
 cd passify
-```plaintext
+```
 
 ### 2. Build and run with Docker
 
 ```bash
 docker build -t passify .
 docker run -p 5000:5000 -v \$(pwd)/history.txt:/app/history.txt passify
-```plaintext
+```
 
 ### 3. Open in your browser
 
@@ -42,7 +42,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python app.py
-```plaintext
+```
 
 ## 🤝 Contributing
 
