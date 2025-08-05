@@ -3,7 +3,8 @@ import random
 import string
 import secrets
 from datetime import datetime, timezone
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, send_file, Response
+import io
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Generate secure random secret key
@@ -126,6 +127,35 @@ def index():
 def history():
     history = get_history()
     return render_template('history.html', history=history)
+
+@app.route('/export')
+def export_history():
+    if not os.path.exists(HISTORY_FILE):
+        return Response("No history to export", mimetype="text/plain")
+    
+    # Read the history file
+    with open(HISTORY_FILE, 'r') as f:
+        content = f.read()
+    
+    # Create in-memory file
+    buffer = io.BytesIO(content.encode('utf-8'))
+    buffer.seek(0)
+    
+    # Create response
+    return send_file(
+        buffer,
+        mimetype="text/plain",
+        as_attachment=True,
+        download_name="password_history.txt"
+    )
+
+@app.route('/clear', methods=['POST'])
+def clear_history():
+    if os.path.exists(HISTORY_FILE):
+        # Create empty file (clearing history)
+        with open(HISTORY_FILE, 'w') as f:
+            pass
+    return redirect(url_for('history'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)

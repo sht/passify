@@ -65,13 +65,34 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-3">
-                    <button class="btn btn-sm btn-outline-secondary" disabled>
+                    <a href="{{ url_for('export_history') }}" class="btn btn-sm btn-outline-secondary">
                         <i class="fas fa-download me-1"></i>Export
-                    </button>
+                    </a>
                     <div>
-                        <button class="btn btn-sm btn-outline-danger" disabled>
+                        <button class="btn btn-sm btn-outline-danger" id="clearHistoryBtn" data-bs-toggle="modal" data-bs-target="#confirmClearModal">
                             <i class="fas fa-trash-alt me-1"></i>Clear History
                         </button>
+                    </div>
+                </div>
+
+                <!-- Confirmation Modal -->
+                <div class="modal fade" id="confirmClearModal" tabindex="-1" aria-labelledby="confirmClearModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmClearModalLabel">Confirm Clear History</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to clear your password history? This action cannot be undone.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form action="{{ url_for('clear_history') }}" method="post">
+                                    <button type="submit" class="btn btn-danger">Clear History</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% else %}
