@@ -5,11 +5,14 @@ import secrets
 from datetime import datetime, timezone
 from flask import Flask, render_template, request, redirect, url_for, session, send_file, Response
 import io
+import tempfile
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Generate secure random secret key
 
-HISTORY_FILE = 'history.txt'
+# Use temp directory for serverless environment
+TEMP_DIR = tempfile.gettempdir()
+HISTORY_FILE = os.path.join(TEMP_DIR, 'history.txt')
 MAX_HISTORY = 100
 SPECIAL_CHARACTERS = "!@#$%^&*()-_=+[]{}|;:,.<>?/~`"
 
@@ -157,5 +160,9 @@ def clear_history():
             pass
     return redirect(url_for('history'))
 
+# For local development
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
+    
+# This is needed for Vercel deployment
+# The variable name "app" is what Vercel looks for
