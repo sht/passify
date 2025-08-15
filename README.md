@@ -3,6 +3,10 @@
 A beautiful, lightweight, and customisable password generator web app.  
 Built with Flask, Bootstrap, and Docker. No database required.
 
+## Demo
+
+- [passify.sek4.com](https://passify.sek4.com/)
+
 ![Passify Screenshot](screenshot.png)
 
 ## ✨ Features
