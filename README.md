@@ -7,7 +7,8 @@ Built with Flask, Bootstrap, and Docker. No database required.
 
 - [passify.sek4.com](https://passify.sek4.com/)
 
-![Passify Screenshot](screenshot.png)
+<img width="1344" height="609" alt="image" src="https://github.com/user-attachments/assets/86e56d3e-0cce-4bd3-a5ae-27930a899d5e" />
+
 
 ## ✨ Features
 
