@@ -18,11 +18,11 @@
                 {{ history_utils.history_table(history) }}
 
                 <div class="d-flex justify-content-between mt-3">
-                    <a href="{{ url_for('export_history') }}" class="btn btn-sm btn-outline-secondary">
+                    <a href="{{ url_for('main.export_history') }}" class="btn btn-sm btn-outline-secondary">
                         <i class="fas fa-download me-1"></i>Export
                     </a>
                     <div>
-                        <form action="{{ url_for('clear_history') }}" method="post" onsubmit="return confirm('Are you sure you want to clear your password history? This action cannot be undone.')">
+                        <form action="{{ url_for('main.clear_history') }}" method="post" onsubmit="return confirm('Are you sure you want to clear your password history? This action cannot be undone.')">
                             <button type="submit" class="btn btn-sm btn-outline-danger">
                                 <i class="fas fa-trash-alt me-1"></i>Clear History
                             </button>
@@ -33,7 +33,7 @@
                 <div class="alert alert-info text-center">
                     <i class="fas fa-info-circle me-2"></i>No password history yet.
                     <br>
-                    <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">
                         <i class="fas fa-key me-2"></i>Generate Your First Password
                     </a>
                 </div>
