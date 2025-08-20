@@ -52,17 +52,11 @@ def index():
     # Pass current settings to template
     settings = session.get('settings', DEFAULT_SETTINGS)
     
-    # For server-side rendering, just use regular templates
-    if not password:
-        return render_template('index.html', password=None, error=error, settings=settings)
-        
-    # Server-side component rendering - generate password display
-    password_component = PasswordDisplay(password).render()
+    # For server-side rendering, always use regular templates
     return render_template('index.html', 
                           password=password, 
                           error=error, 
-                          settings=settings,
-                          password_component=password_component)
+                          settings=settings)
 
 @main_bp.route('/history')
 def history():
