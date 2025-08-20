@@ -1,4 +1,4 @@
-# Passify
+# Passify <img width="30" height="30" alt="fav" src="https://github.com/user-attachments/assets/a72e9ba9-81d4-4289-bfdb-d0d302adaff3" />
 
 A beautiful, lightweight, and customisable password generator web app.  
 Built with Flask, Bootstrap, and Docker. No database required.
