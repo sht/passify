@@ -1,0 +1,68 @@
+{% macro checkbox(name, label, checked=false, help_text=None) %}
+<div class="form-check mb-2">
+    <input class="form-check-input" type="checkbox" id="{{ name }}" name="{{ name }}" {% if checked %}checked{% endif %}>
+    <label class="form-check-label" for="{{ name }}">{{ label }}</label>
+    {% if help_text %}
+    <div class="form-text">{{ help_text }}</div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro range_input(name, label, min, max, value, step=1) %}
+<div class="mb-3">
+    <label for="{{ name }}" class="form-label">{{ label }} <span class="badge bg-secondary" id="{{ name }}_value">{{ value }}</span></label>
+    <input type="range" class="form-range" id="{{ name }}" name="{{ name }}" min="{{ min }}" max="{{ max }}" value="{{ value }}" step="{{ step }}" 
+           oninput="document.getElementById('{{ name }}_value').textContent = this.value">
+</div>
+{% endmacro %}
+
+{% macro number_input(name, label, min, max, value, required=false, help_text=None) %}
+<div class="mb-3">
+    <label for="{{ name }}" class="form-label">{{ label }}</label>
+    <input type="number" class="form-control" id="{{ name }}" name="{{ name }}" 
+           min="{{ min }}" max="{{ max }}" value="{{ value }}" {% if required %}required{% endif %}>
+    {% if help_text %}
+    <div class="form-text">{{ help_text }}</div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro alert(type, message) %}
+<div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endmacro %}
+
+{% macro password_display(password) %}
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Your Generated Password</h5>
+        <button class="btn btn-sm btn-outline-secondary copy-btn" 
+                data-bs-toggle="tooltip" 
+                data-bs-title="Copy to clipboard" 
+                onclick="copyPassword()" type="button">
+            <i class="fas fa-copy"></i>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="password-display">
+            <span id="password-text">{{ password }}</span>
+        </div>
+    </div>
+</div>
+<script>
+function copyPassword() {
+    const passwordText = document.getElementById('password-text').textContent;
+    navigator.clipboard.writeText(passwordText).then(() => {
+        const copyBtn = document.querySelector('.copy-btn');
+        copyBtn.setAttribute('data-bs-original-title', 'Copied!');
+        const tooltip = bootstrap.Tooltip.getInstance(copyBtn);
+        tooltip.show();
+        setTimeout(() => {
+            copyBtn.setAttribute('data-bs-original-title', 'Copy to clipboard');
+        }, 2000);
+    });
+}
+</script>
+{% endmacro %}
