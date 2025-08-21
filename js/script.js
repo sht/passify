@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'random',
         length: 16,
         numbers: true,
-        symbols: true
+        symbols: false
     };
 
     // Initialize the app
