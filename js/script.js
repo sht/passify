@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateUIForType(type) {
-        const customizationEl = document.querySelector('.customization');
+        const toggleOptionsEl = document.querySelector('.toggle-options');
         
         if (type === 'pin') {
             // Set PIN length to 6 by default
@@ -225,17 +225,15 @@ document.addEventListener('DOMContentLoaded', function() {
             numbersCheckbox.checked = true;
             symbolsCheckbox.checked = false;
             
-            // Disable checkboxes for PIN
-            numbersCheckbox.disabled = true;
-            symbolsCheckbox.disabled = true;
-            
-            customizationEl.style.opacity = '0.6';
+            // Hide toggle options for PIN
+            toggleOptionsEl.style.display = 'none';
         } else {
+            // Show toggle options for other types
+            toggleOptionsEl.style.display = 'flex';
+            
             // Enable checkboxes for other types
             numbersCheckbox.disabled = false;
             symbolsCheckbox.disabled = false;
-            
-            customizationEl.style.opacity = '1';
         }
     }
 
