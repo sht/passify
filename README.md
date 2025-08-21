@@ -1,4 +1,4 @@
-# Password Generator
+# Passify
 
 A lightweight web application that generates secure passwords with customization options.
 
