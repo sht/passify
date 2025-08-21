@@ -32,44 +32,45 @@ body {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    padding: 34px;
+    padding: 24px;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
 }
 
 h1, h2 {
     color: var(--text-color);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
 }
 
 .divider {
     height: 1px;
     background-color: var(--border-color);
-    margin: 24px 0;
+    margin: 18px 0;
 }
 
 .password-types {
     display: flex;
     background-color: #f1f5f9;
     border-radius: var(--border-radius);
-    padding: 6px;
-    margin-bottom: 30px;
+    padding: 5px;
+    margin-bottom: 20px;
 }
 
 .type-btn {
     flex: 1;
-    padding: 12px;
+    padding: 10px;
     border: none;
     background: none;
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.2s;
 }
 
@@ -85,7 +86,7 @@ h1, h2 {
 .customization {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
 }
 
 .length-control {
@@ -207,10 +208,10 @@ input:checked + .slider:before {
 
 .password-output input {
     width: 100%;
-    padding: 16px;
+    padding: 12px;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    font-size: 18px;
+    font-size: 16px;
     font-family: monospace;
     letter-spacing: 1px;
     outline: none;
@@ -223,10 +224,10 @@ input:checked + .slider:before {
 
 .btn {
     flex: 1;
-    padding: 14px;
+    padding: 12px;
     border: none;
     border-radius: var(--border-radius);
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
