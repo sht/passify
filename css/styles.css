@@ -134,18 +134,21 @@ input[type="number"]::-webkit-inner-spin-button {
     opacity: 1;
 }
 
-.toggle-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 5px;
+.toggle-container {
+    margin-bottom: 10px;
 }
 
-.toggle-option {
+.toggle-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex: 1;
+}
+
+.toggle-label {
+    margin-right: 10px;
+}
+
+.toggle-switch {
+    margin-right: 20px;
 }
 
 /* Toggle Switch */
