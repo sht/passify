@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateUIForType(type) {
-        const toggleOptionsEl = document.querySelector('.toggle-options');
+        const toggleContainer = document.querySelector('.toggle-container');
         
         if (type === 'pin') {
             // Set PIN length to 6 by default
@@ -226,12 +226,26 @@ document.addEventListener('DOMContentLoaded', function() {
             symbolsCheckbox.checked = false;
             
             // Hide toggle options for PIN
-            toggleOptionsEl.style.display = 'none';
-        } else {
-            // Show toggle options for other types
-            toggleOptionsEl.style.display = 'flex';
+            toggleContainer.style.display = 'none';
+        } else if (type === 'memorable') {
+            // Set memorable password length to 16 by default
+            config.length = 16;
+            lengthSlider.value = 16;
+            lengthValue.value = 16;
+            updateSliderBackground();
             
-            // Enable checkboxes for other types
+            // Show toggle options for memorable
+            toggleContainer.style.display = 'block';
+            
+            // Enable checkboxes for memorable
+            numbersCheckbox.disabled = false;
+            symbolsCheckbox.disabled = false;
+        } else {
+            // For random password
+            // Show toggle options for random
+            toggleContainer.style.display = 'block';
+            
+            // Enable checkboxes for random
             numbersCheckbox.disabled = false;
             symbolsCheckbox.disabled = false;
         }
