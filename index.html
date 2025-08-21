@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passify Password Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="./static/fav.png">
+</head>
+<body>
+    <div class="container">
+        <h1>Choose password type</h1>
+        <div class="password-types">
+            <button class="type-btn active" data-type="random"><span>⚙️</span> Random</button>
+            <button class="type-btn" data-type="memorable"><span>💡</span> Memorable</button>
+            <button class="type-btn" data-type="pin"><span>#️</span> PIN</button>
+        </div>
+        
+        <h2>Customize your new password</h2>
+        <div class="divider"></div>
+        
+        <div class="customization">
+            <div class="length-control">
+                <label for="length">Characters</label>
+                <div class="slider-container">
+                    <input type="range" id="length" min="4" max="32" value="16">
+                    <input type="number" id="length-value" min="4" max="32" value="16">
+                </div>
+            </div>
+            
+            <div class="toggle-options">
+                <div class="toggle-option">
+                    <label for="numbers">Numbers</label>
+                    <label class="switch">
+                        <input type="checkbox" id="numbers" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="toggle-option">
+                    <label for="symbols">Symbols</label>
+                    <label class="switch">
+                        <input type="checkbox" id="symbols" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <h2>Generated password</h2>
+        <div class="password-output">
+            <input type="text" id="password" readonly>
+        </div>
+        
+        <div class="action-buttons">
+            <button id="copy" class="btn primary">Copy password</button>
+            <button id="refresh" class="btn secondary">Refresh password</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
