@@ -1,0 +1,21 @@
+{
+  "name": "passify",
+  "version": "1.0.0",
+  "description": "A lightweight web application that generates secure passwords with customization options.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-sht:sht/passify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
