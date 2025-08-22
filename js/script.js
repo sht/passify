@@ -242,6 +242,12 @@ document.addEventListener('DOMContentLoaded', function() {
             symbolsCheckbox.disabled = false;
         } else {
             // For random password
+            // Set random password length to 16 by default
+            config.length = 16;
+            lengthSlider.value = 16;
+            lengthValue.value = 16;
+            updateSliderBackground();
+            
             // Show toggle options for random
             toggleContainer.style.display = 'block';
             
