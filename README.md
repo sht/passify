@@ -47,3 +47,7 @@ You can also open `index.html` directly in your web browser, though some feature
 - JavaScript (ES6+)
 - Node.js
 - Express.js
+
+## Security
+
+If you discover a security vulnerability, please email us at **oss@mailite.com** or create a GitHub security advisory with appropriate details. Please do not open a public issue for security vulnerabilities. See [SECURITY.md](SECURITY.md) for more information.
