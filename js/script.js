@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
         const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const numberChars = '0123456789';
-        const symbolChars = '!@#$%^&*()_-+=<>?/[]{}|';
+        const symbolChars = '!@#$%^&*-_+=';
         
         let availableChars = lowercaseChars + uppercaseChars;
         if (config.numbers) availableChars += numberChars;
@@ -162,8 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (config.numbers || config.symbols) {
             let extras = '';
             if (config.numbers) extras += Math.floor(Math.random() * 100);
-            if (config.symbols) extras += getRandomChar('!@#$%^&*');
-            
+            if (config.symbols) extras += getRandomChar('!@#$%^&*-_+=');
+
             // Replace end of password with extras
             password = password.slice(0, config.length - extras.length) + extras;
         }
